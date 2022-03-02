@@ -41,7 +41,6 @@ public class ImDayController {
         return mapSequenciaSup;
     }
 
-    @Test
     private List<Suporte> preencheSuportes() {
         List<Suporte> suportes = new ArrayList<>();
         for(int i=0;i<9;i++){
