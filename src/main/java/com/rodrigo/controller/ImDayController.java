@@ -1,25 +1,25 @@
 package com.rodrigo.controller;
 
 import com.rodrigo.model.Suporte;
-import org.junit.Test;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.*;
 
-
+@Api(value="API im-day")
 @RestController
 public class ImDayController {
 
-//    @Autowired
-//    private UserService service;
-
+    @ApiOperation(value = "Retorna json ordenado com a ordem de suportes e a data que ele irá atender")
     @RequestMapping("/im-day")
     public Map<Date, String>  listaOrdemResolucao() {
-        //será retornado maps para que possaser tratado a visualização no front-end
+        //será retornado maps para que possa ser tratado a visualização no front-end
         Map<Date, String> mapSequenciaSup = obterSequenciaSuporte();
         return mapSequenciaSup;
     }
 
+    @ApiOperation(value = "Organiza a lista de suportes baseado na ordem definida")
     private Map<Date,String> obterSequenciaSuporte(){
         Map<Date,String> mapSequenciaSup = new TreeMap<Date,String>();
         List<Suporte> suportes = preencheSuportes();
@@ -41,6 +41,7 @@ public class ImDayController {
         return mapSequenciaSup;
     }
 
+    @ApiOperation(value = "Preenche a lista de suportes fixos")
     private List<Suporte> preencheSuportes() {
         List<Suporte> suportes = new ArrayList<>();
         for(int i=0;i<9;i++){
@@ -52,6 +53,7 @@ public class ImDayController {
         return suportes;
     }
 
+    @ApiOperation(value = "Retorna o Nome de cada suporte baseado na ordem definida na descrição do teste")
     private String getNome(int ordem){
         switch (ordem){
             case 0:
@@ -75,5 +77,4 @@ public class ImDayController {
         }
         return "Não encontrado";
     }
-
 }

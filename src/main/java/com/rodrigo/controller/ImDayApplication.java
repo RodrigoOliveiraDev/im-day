@@ -6,10 +6,9 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class })
 
-public class ImDayApplication {
-
+public class
+ImDayApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ImDayApplication.class, args);
 	}
-
 }
