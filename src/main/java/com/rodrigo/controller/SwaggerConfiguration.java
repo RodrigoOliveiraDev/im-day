@@ -2,6 +2,8 @@ package com.rodrigo.controller;
 
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import org.springframework.context.annotation.Bean;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfiguration {
+public class SwaggerConfiguration  {
 
     @Bean
     public Docket productApi() {

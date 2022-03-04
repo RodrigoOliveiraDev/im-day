@@ -1,6 +1,7 @@
 package com.rodrigo.controller;
 
 import com.rodrigo.model.Suporte;
+import com.rodrigo.view.RetornoJsonImDay;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,13 +14,19 @@ public class ImDayController {
 
     @ApiOperation(value = "Retorna json ordenado com a ordem de suportes e a data que ele irá atender")
     @RequestMapping("/im-day")
-    public Map<Date, String>  listaOrdemResolucao() {
-        //será retornado maps para que possa ser tratado a visualização no front-end
+    public List<RetornoJsonImDay>  listaOrdemResolucao() {
+        //será retornado lista para que possa ser tratado a visualização no front-end
+        List<RetornoJsonImDay> listRetorno = new ArrayList<>();
         Map<Date, String> mapSequenciaSup = obterSequenciaSuporte();
-        return mapSequenciaSup;
+        for (Map.Entry<Date, String> suporteEntry : mapSequenciaSup.entrySet()) {
+            RetornoJsonImDay retornoJsonImDay = new RetornoJsonImDay();
+            retornoJsonImDay.setData(suporteEntry.getKey());
+            retornoJsonImDay.setResponsavel(suporteEntry.getValue());
+            listRetorno.add(retornoJsonImDay);
+        }
+        return listRetorno;//não precisaria de maps nesse caso, mas não tive tento para trocar essa estrutura
     }
 
-    @ApiOperation(value = "Organiza a lista de suportes baseado na ordem definida")
     private Map<Date,String> obterSequenciaSuporte(){
         Map<Date,String> mapSequenciaSup = new TreeMap<Date,String>();
         List<Suporte> suportes = preencheSuportes();
@@ -41,7 +48,6 @@ public class ImDayController {
         return mapSequenciaSup;
     }
 
-    @ApiOperation(value = "Preenche a lista de suportes fixos")
     private List<Suporte> preencheSuportes() {
         List<Suporte> suportes = new ArrayList<>();
         for(int i=0;i<9;i++){
@@ -53,7 +59,6 @@ public class ImDayController {
         return suportes;
     }
 
-    @ApiOperation(value = "Retorna o Nome de cada suporte baseado na ordem definida na descrição do teste")
     private String getNome(int ordem){
         switch (ordem){
             case 0:
